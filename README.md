@@ -9,7 +9,7 @@ Trois fourmillières de factions différentes placées aléatoirement sur la car
 
 A chaque récolte une fourmi posera des phéromones afin d'attirer les fourmis alliées pour leur indiquer le point de nourriture. Les fourmis guerrières éliminant des fourmis adverses relacheront elles aussi des phéromones pour prévenir les ouvrières alliées qu'une menace était présente à cette case. La taille des phéromones peut être augmentée ou diminiée grâce à l'interface juxtaposé à la partie en cours. La taille peut varier entre 3 et 10 (Taille de base : 4)
 
-L'ajout de fourmis ouvrières et guerrières peut se faire via l'interface juxtaposé à la carte, tout comme le temps restant et les points en temps réél des différentes équipes. Deux images de carte sont disponibles mais cela n'interfère pas le placement des fourmillières ni des ressources à récolter.
+L'ajout de fourmis ouvrières, guerrières et commandantes peut se faire via l'interface juxtaposé à la carte, tout comme le temps restant et les points en temps réél des différentes équipes. Deux images de carte sont disponibles mais cela n'interfère pas le placement des fourmillières ni des ressources à récolter.
 
 Un bouton "Bombe" permet de tuer toutes les fourmis présentes dans le jeu et ainsi geler les scores avant la fin du décompte.
 
@@ -21,7 +21,7 @@ Taille de la carte : 80x80
 
 Type de victoire : Plus grand nombre de points
 
-Une fois le décompte arrivé à 0, la partie se gèle, laissant toutes les fourmis sur la carte et annonçant les scores des différentes équipes ainsi que le vainqueur de la partie dans la console. 
+Une fois le décompte arrivé à 0, la partie se gèle, laissant toutes les fourmis sur la carte et annonçant les scores des différentes équipes ainsi que le vainqueur de la partie dans la console (Boucle while infinie). 
 
 ## Requirements
 
