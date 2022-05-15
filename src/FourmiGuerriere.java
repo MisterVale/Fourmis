@@ -9,11 +9,13 @@ public class FourmiGuerriere extends Fourmi
 	// cree une fourmi grace au constructeur de la classe mere
 	super(x,y,f);
 
-	// Les fourmis guerrieres sont + foncees que les ouvrieres
+	// Les fourmis guerrieres sont plus foncees que les ouvrieres
 	if(c.getRed() == 0 )
-	    this.c= new Color(c.getRed()+100,c.getGreen(),c.getBlue(),c.getAlpha());
+	    this.c= new Color(c.getRed(),c.getGreen(),c.getBlue(),c.getAlpha());
 	else if(c.getBlue() == 0)
-	    this.c= new Color(c.getRed(),c.getGreen(),c.getBlue()+40,c.getAlpha());
+	    this.c= new Color(c.getRed(),c.getGreen(),c.getBlue(),c.getAlpha());
+	else if(c.getGreen() == 0)
+	    this.c= new Color(c.getRed(),c.getGreen(),c.getBlue(),c.getAlpha());
     }
 
     public void action() throws Placement
