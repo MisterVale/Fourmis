@@ -1,4 +1,4 @@
-
+// Initialisation du jeu
 class Start
 {
       public static void main (String[] args)
@@ -9,4 +9,3 @@ class Start
 	timer.run();
     }
 }
-
