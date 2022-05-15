@@ -12,6 +12,7 @@ public class Time extends Thread implements Constantes
 	p_cfg = p_c;
     }
 
+	// Boucle infinie decrementant le timer
     public void run() 
     {
 	while(true)
