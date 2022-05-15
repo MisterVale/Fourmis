@@ -9,9 +9,9 @@ public class FenetreConfig extends JFrame implements Constantes,ActionListener
     // Déclaration des bouttons
     private PanneauCfg panel = new PanneauCfg();
     private JButton[] JStade = {new JButton("Augmenter nuage alerte"), new JButton("Diminuer nuage alerte")};
-    private JButton[] JAdd1 = {new JButton("Ajouter une ouvriere rouge"), new JButton("Ajouter une guerriere rouge")};
-    private JButton[] JAdd2 = {new JButton("Ajouter une ouvriere bleue"), new JButton("Ajouter une guerriere bleue")};
-    private JButton[] JAdd3 = {new JButton("Ajouter une ouvriere jaune"), new JButton("Ajouter une guerriere jaune")};
+    private JButton[] JAdd1 = {new JButton("Ajouter une ouvriere rouge"), new JButton("Ajouter une guerriere rouge"), new JButton("Ajouter une commandante rouge")};
+    private JButton[] JAdd2 = {new JButton("Ajouter une ouvriere bleue"), new JButton("Ajouter une guerriere bleue"), new JButton("Ajouter une commandante bleue")};
+    private JButton[] JAdd3 = {new JButton("Ajouter une ouvriere verte"), new JButton("Ajouter une guerriere verte"), new JButton("Ajouter une commandante verte")};
     private JButton JBombe = new JButton("Bombe");
     // Boutton à image : déclaration differente (pas de string)
     private JButton[] JDecor = {new JButton(),new JButton()};  
@@ -56,24 +56,27 @@ public class FenetreConfig extends JFrame implements Constantes,ActionListener
 	panel.setLayout(null); 
 	// taille et position des bouttons
 	// ---------- bouttons de l'ajout de fourmis bleues
-	JAdd1[0].setBounds((LONG_CFG/2)-100,110,200,25);
-	JAdd1[1].setBounds((LONG_CFG/2)-100,140,200,25);
+	JAdd1[0].setBounds((LONG_CFG/2)-100,130,200,25);
+	JAdd1[1].setBounds((LONG_CFG/2)-100,160,200,25);
+	JAdd1[2].setBounds((LONG_CFG/2)-100,190,200,25);
 	// ---------- bouttons de l'ajout de fourmis vertes
-	JAdd2[0].setBounds((LONG_CFG/2)-100,270,200,25);
-	JAdd2[1].setBounds((LONG_CFG/2)-100,300,200,25);
+	JAdd2[0].setBounds((LONG_CFG/2)-100,310,200,25);
+	JAdd2[1].setBounds((LONG_CFG/2)-100,340,200,25);
+	JAdd2[2].setBounds((LONG_CFG/2)-100,370,200,25);
 	// ---------- bouttons de l'ajout de fourmis rouges
-	JAdd3[0].setBounds((LONG_CFG/2)-100,430,200,25);
-	JAdd3[1].setBounds((LONG_CFG/2)-100,460,200,25);
+	JAdd3[0].setBounds((LONG_CFG/2)-100,490,200,25);
+	JAdd3[1].setBounds((LONG_CFG/2)-100,520,200,25);
+	JAdd3[2].setBounds((LONG_CFG/2)-100,550,200,25);
 	// ---------- boutton de destruction
-	JBombe.setBounds((LONG_CFG/2)-60,690,120,25);
+	JBombe.setBounds((LONG_CFG/2)-60,750,120,25);
 	// ---------- bouttons de changement de decor
-	JDecor[0].setBounds(40,590,75,35);
-	JDecor[1].setBounds(150,590,75,35);
+	JDecor[0].setBounds(40,690,75,35);
+	JDecor[1].setBounds(150,690,75,35);
 	// ---------- bouttons d'agrandissement / diminution du nuage de phéromones
-	JStade[0].setBounds((LONG_CFG/2)-90,500,180,25);
-	JStade[1].setBounds((LONG_CFG/2)-90,530,180,25);
+	JStade[0].setBounds((LONG_CFG/2)-90,590,180,25);
+	JStade[1].setBounds((LONG_CFG/2)-90,620,180,25);
 	// -------------------- Label ou est indique la taille du nuage de pheromones 
-	tailleNuage.setBounds((LONG_CFG/2),545,40,40);
+	tailleNuage.setBounds((LONG_CFG/2),645,40,40);
 
 
 
@@ -91,25 +94,30 @@ public class FenetreConfig extends JFrame implements Constantes,ActionListener
 	panel.add(JBombe);
 	panel.add(tailleNuage);
 
-	for(int i=0; i < 2; i++)
+	for(int i=0; i < 3; i++)
 	    {
 		// on change la police du boutton
 		JAdd1[i].setFont(font);
 		JAdd2[i].setFont(font);
 		JAdd3[i].setFont(font);
-		JDecor[i].setFont(font);
+		
 		// on ajoute le boutton au panneau
 		panel.add(JAdd1[i]);
 		panel.add(JAdd2[i]);
 		panel.add(JAdd3[i]);
-		panel.add(JDecor[i]);
+		
 		// on associe un evenement a chaque boutton
-		JDecor[i].addActionListener(this);
 		JAdd1[i].addActionListener(this);
 		JAdd2[i].addActionListener(this);
 		JAdd3[i].addActionListener(this);
 	    }
 
+	for(int i=0; i < 2; i++)
+	    {
+	    JDecor[i].setFont(font);
+	    panel.add(JDecor[i]);
+	    JDecor[i].addActionListener(this);
+	    }
 
 	for(int i=0; i < 2; i++)
 	    {
@@ -120,7 +128,7 @@ public class FenetreConfig extends JFrame implements Constantes,ActionListener
 
 	setContentPane(panel);
 	setVisible(true);
-	//	setResizable(false);
+	setResizable(false);
 
     }
 
@@ -149,14 +157,20 @@ public class FenetreConfig extends JFrame implements Constantes,ActionListener
 	    panel.addFourmiOuv(0);
 	else if(source == JAdd1[1])
 	    panel.addFourmiGue(0);
+    else if(source == JAdd1[2])
+	    panel.addFourmiCmdt(0);
 	else if (source == JAdd2[0])
 	    panel.addFourmiOuv(1);
 	else if(source == JAdd2[1])
 	    panel.addFourmiGue(1);
+    else if(source == JAdd2[2])
+	    panel.addFourmiCmdt(1);
 	else if (source == JAdd3[0])
 	    panel.addFourmiOuv(2);
 	else if(source == JAdd3[1])
 	    panel.addFourmiGue(2);
+    else if(source == JAdd3[2])
+	    panel.addFourmiCmdt(2);
 	else if(source == JBombe)
 	    panel.killAll();
 	else if(source == JDecor[0])
