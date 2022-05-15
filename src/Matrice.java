@@ -14,7 +14,6 @@ class Matrice implements Constantes
 				a[i][j] = new Case(i,j);
 			}
 		}
-		System.out.println("Longueur : " + LONG + " Hauteur : " + HAUT);
 		System.out.println("Taille de la map : " + LONG / 10 + " x : " + HAUT / 10);
     }
 
@@ -85,30 +84,6 @@ class Matrice implements Constantes
 			
 	if(tempsPlusFaible == DUREE_VIE_PHERO)
 	    f.setMode(FourmiOuvriere.Mode.RECHERCHE);	
-    }
-
-	// Fonction permetttant a la fourmi de fuir lorsqu'elle sent des pheromones ennemies
-    public void fuir(FourmiOuvriere f, PheromoneAlerte p)
-    {
-	int f_x = f.getX();
-	int f_y = f.getY();
-	int p_x = p.getX();
-	int p_y = p.getY();
-
-	if(f_x == p_x)
-	    {
-		if(f_y > p_y && f_y+COTE+10 <= HAUT)
-		    f.setDirection(FourmiOuvriere.Direction.BAS);
-		else if(f_y < p_y && f_y-10 >= 0)
-		    f.setDirection(FourmiOuvriere.Direction.HAUT);
-		else if(f_y == p_y && f_y+COTE+10 <= HAUT)
-		    //Ou elle veut
-		    f.setDirection(FourmiOuvriere.Direction.HAUT);
-	    }
-	else if(f_x < p_x && f_x-10 >= 0)
-	    f.setDirection(FourmiOuvriere.Direction.GAUCHE);
-	else if(f_x > p_x && f_x+COTE+10 <= LONG)
-	    f.setDirection(FourmiOuvriere.Direction.DROITE);
     }
 	
 	// Tue la fourmi
