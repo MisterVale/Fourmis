@@ -26,23 +26,25 @@ public class Panneau extends JPanel implements Constantes
     //Images des plantes, 3 types et 3 états
     private Image[][] img_plante = new Image[3][3];
     
-    public int generateRandom(int min, int max) {
-        // create instance of Random class
+    public int generateRandom(int max) {
+        // Creation d'une instance pour l'aleatoire
         Random randomNum = new Random();
-        return min + randomNum.nextInt(max);
+        return 50 + randomNum.nextInt(max);
     }
 
     public Panneau()
     {
-    Fourmiliere bel_o_kano = new Fourmiliere(generateRandom(50, 750),generateRandom(50, 550),50,20,COLOR_FOURMILIERE[2]);
+    // Generation des fourmillieres à une position aleatoire avec 50 ouvrieres et 20 guerrieres
+    Fourmiliere bel_o_kano = new Fourmiliere(generateRandom(700),generateRandom(700),50,20,5,COLOR_FOURMILIERE[2]);
 	aListFourmiliere.add(bel_o_kano);
     
-	Fourmiliere bel_o_kan = new Fourmiliere(generateRandom(50, 750),generateRandom(50, 550),50,20,COLOR_FOURMILIERE[1]);
+	Fourmiliere bel_o_kan = new Fourmiliere(generateRandom(700),generateRandom(700),50,20,5,COLOR_FOURMILIERE[1]);
 	aListFourmiliere.add(bel_o_kan);
 
-	Fourmiliere bel_o_kuni = new Fourmiliere(generateRandom(50, 750),generateRandom(50, 550),50,20,COLOR_FOURMILIERE[0]);
+	Fourmiliere bel_o_kuni = new Fourmiliere(generateRandom(700),generateRandom(700),50,20,5,COLOR_FOURMILIERE[0]);
 	aListFourmiliere.add(bel_o_kuni);
 
+	// Recuperation des images pour les plantes
 	img_plante[0][0] = Toolkit.getDefaultToolkit().getImage("images/plante.png");
 	img_plante[0][1] = Toolkit.getDefaultToolkit().getImage("images/plante_moyenne.png");
 	img_plante[0][2] = Toolkit.getDefaultToolkit().getImage("images/plante_mal.png");
@@ -76,6 +78,7 @@ public class Panneau extends JPanel implements Constantes
 	    }
     }
 
+	// Incrementation des pheromones
     public void addStade()
     {
 	if(nbStade < STADE_MAX)
@@ -84,6 +87,7 @@ public class Panneau extends JPanel implements Constantes
 	    System.out.println("Stade maximum atteint");
     }
 
+	// Decrementation des pheromones
     public void dimStade()
     {
 	if(nbStade > NB_STADE-1)
@@ -92,6 +96,7 @@ public class Panneau extends JPanel implements Constantes
 	    System.out.println("Stade minimum atteint");
     }
     
+    // Lors de l'appui sur le bouton Bombe, tue toutes les fourmis et change le fond de la carte
     public void killAll()
     {
 	for(int i=0; i<aListFourmiliere.size();i++)
@@ -117,6 +122,7 @@ public class Panneau extends JPanel implements Constantes
 
     }
 
+	// Ajout des plantes sur le plateau de jeu
     private void displayAllPlante()
     {
 	//On parcours le aListeur de plante
@@ -180,16 +186,19 @@ public class Panneau extends JPanel implements Constantes
 	g.drawImage(image,0,0,this);
     }
 
-    public void info(int[] nbOuv, int[] nbGue, int[] res)
+	// Ajout des fourmis et des reserves
+    public void info(int[] nbOuv, int[] nbGue, int[] nbCmdt, int[] res)
     {
 	for(int i=0; i<aListFourmiliere.size();i++)
 	    {
 		nbOuv[i] = aListFourmiliere.get(i).getNbOuv();
 		nbGue[i] = aListFourmiliere.get(i).getNbGue();
+		nbCmdt[i] = aListFourmiliere.get(i).getNbCmdt();
 		res[i] = aListFourmiliere.get(i).getReserves();	
 	    }
     }
 
+	// Ajout des fourmis ouvrieres
     public void addFourmiOuv(int i)
     {
 	if(i>= 0 && i < aListFourmiliere.size())
@@ -198,6 +207,7 @@ public class Panneau extends JPanel implements Constantes
 	    System.out.println("Error : fourmiliere non reconnue");
     }
 
+	// Ajout des fourmis guerrieres
     public void addFourmiGue(int i)
     {
 	if(i>= 0 && i < aListFourmiliere.size())
@@ -206,11 +216,22 @@ public class Panneau extends JPanel implements Constantes
 	    System.out.println("Error : fourmiliere non reconnue");
     }
 
+	// Ajout des fourmis commandantes
+    public void addFourmiCmdt(int i)
+    {
+	if(i>= 0 && i < aListFourmiliere.size())
+	    aListFourmiliere.get(i).addFourmiCmdt();
+	else
+	    System.out.println("Error : fourmiliere non reconnue");
+    }
+    
+	// Recuperation du niveau de pheromones
     public int getStade()
     {
 	return nbStade;
     }
 
+	// Images du fond de la carte
     public void changeDecor(int n)
     {
 	if(n == 0)
@@ -332,5 +353,5 @@ public void readFile()
 	    {
 		System.out.println(e.toString());
 	    }
-    }            
+    }       
 }
