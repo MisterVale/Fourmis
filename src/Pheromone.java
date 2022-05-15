@@ -8,6 +8,8 @@ abstract class Pheromone implements Constantes
     protected Placement pl = new Placement();
     protected Color c;
 
+
+	// Cree des pheromones avant de les dessiner sur le jeu
     protected Pheromone(int x, int y, Fourmiliere f)
     {
 	this.x = x;
@@ -20,6 +22,7 @@ abstract class Pheromone implements Constantes
 	temps = DUREE_VIE_PHERO;
     }
 
+	// Verifie l'etat de vie de la pheromone
     protected void testLife() throws Placement
     {
 	if(temps == 0)
@@ -49,7 +52,7 @@ abstract class Pheromone implements Constantes
 	return f;
     }
 
-
+	// Dissipe les pheromones petit a petit
     protected void dissiper()
     {
 	if(temps > 0)
