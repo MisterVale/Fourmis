@@ -16,7 +16,7 @@ class Case
 	this.y = y;
     }
 
-    // Ajouter une fourmi (ouvriere ou guerriere) a l'arrayList
+    // Ajouter une fourmi (ouvriere, guerriere ou commandante) a l'arrayList
     public void addFourmi(Fourmi f)
     {
 	aListObj.add(f);
@@ -121,7 +121,6 @@ class Case
 				    // on supprime la fourmi guerriere du vecteur 
 				    id = ((FourmiGuerriere)aListObj.get(k)).get_Id();
 				    this.deleteFourmi(((FourmiGuerriere)aListObj.get(k))); 
-				    
 				}
 			    else
 				{
