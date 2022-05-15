@@ -5,6 +5,8 @@ class Matrice implements Constantes
 {
     private Case a[][] = new Case[LONG][HAUT];
 
+
+	// Creation de la matrice afin de delimiter la zone de jeu
     public Matrice() {
 		for(int i=0; i<LONG; i++){
 			for(int j=0; j<HAUT; j++)
@@ -16,6 +18,7 @@ class Matrice implements Constantes
 		System.out.println("Taille de la map : " + LONG / 10 + " x : " + HAUT / 10);
     }
 
+	// chargement des plantes sur le plateau de jeu
     public void loadPlante(Placement pl)
     {
 	if(pl.obj instanceof Plante)
@@ -35,7 +38,7 @@ class Matrice implements Constantes
 	// pour que la fourmi parte dans le bon sens quand elle tombe sur une phéromone
 	int tempsPlusFaible=DUREE_VIE_PHERO;
 	
-	if(a[(pl.new_x/10)-1][pl.new_y/10].getPheroNourri(f) != null && (pl.new_x/10)- 1 >= 0)
+	if(a[(pl.new_x/10)-1][pl.new_y/10].getPheroNourri(f) != null && (pl.new_x/10)- 1 > 0)
 	    {
 		if(tempsPlusFaible > a[(pl.new_x/10)-1][pl.new_y/10].getPheroNourri(f).getTemps())
 		    {
@@ -59,7 +62,7 @@ class Matrice implements Constantes
 			f.setDirection(FourmiOuvriere.Direction.BAS);
 		    }			
 	    }
-	if(a[pl.new_x/10][(pl.new_y/10)-1].getPheroNourri(f) != null && (pl.new_y/10)-1 >=0)
+	if(a[pl.new_x/10][(pl.new_y/10)-1].getPheroNourri(f) != null && (pl.new_y/10)-1 > 0)
 	    {
 		if(tempsPlusFaible > a[(pl.new_x/10)][(pl.new_y/10)-1].getPheroNourri(f).getTemps())
 		    {
@@ -84,6 +87,7 @@ class Matrice implements Constantes
 	    f.setMode(FourmiOuvriere.Mode.RECHERCHE);	
     }
 
+	// Fonction permetttant a la fourmi de fuir lorsqu'elle sent des pheromones ennemies
     public void fuir(FourmiOuvriere f, PheromoneAlerte p)
     {
 	int f_x = f.getX();
@@ -106,7 +110,8 @@ class Matrice implements Constantes
 	else if(f_x > p_x && f_x+COTE+10 <= LONG)
 	    f.setDirection(FourmiOuvriere.Direction.DROITE);
     }
-
+	
+	// Tue la fourmi
     public void killFourmi(Placement pl)
     {
 	if(pl.obj instanceof Fourmi)
@@ -116,6 +121,8 @@ class Matrice implements Constantes
 	    }
     }
 
+	// Met a jour la carte de jeu en fonction des actions des fourmis (Ouvriere / Guerriere) lors de
+	// leurs deplacements et de la recuperation des ressources
     public void update(Placement pl,ArrayList<Fourmiliere> aListF,ArrayList<Pheromone> aListP)
     {
 	if(pl.obj instanceof Fourmi)
@@ -144,14 +151,6 @@ class Matrice implements Constantes
 					regarderAutour(((FourmiOuvriere)pl.obj),pl);
 				    }
 				//Si c'est different de null => la case contient une phero alerte de la meme colonie que la fourmi ouvriere
-				else if(ph_tmp != null)
-				    {
-					// on veut changer la direction de la fourmi pour qu'elle aille dans le sens contraire du centre de la phero alerte
-					PheromoneAlerte centre_ph_tmp = ph_tmp.getMainPhero();
-					((FourmiOuvriere)pl.obj).setMode(FourmiOuvriere.Mode.FUIR);
-					fuir(((FourmiOuvriere)pl.obj), centre_ph_tmp);
-
-				    }
 			    }
 			else if(((FourmiOuvriere)pl.obj).getMode() == FourmiOuvriere.Mode.RENTRE)
 			    {
@@ -180,17 +179,6 @@ class Matrice implements Constantes
 				    ((FourmiOuvriere)pl.obj).setMode(FourmiOuvriere.Mode.RECHERCHE);
 				else
 				    regarderAutour(((FourmiOuvriere)pl.obj),pl);
-			    }
-			else if(((FourmiOuvriere)pl.obj).getMode() == FourmiOuvriere.Mode.FUIR)
-			    {
-				PheromoneAlerte ph = case_actuelle.getPheroAlerte(((FourmiOuvriere)pl.obj));
-				if(ph == null)
-				    ((FourmiOuvriere)pl.obj).setMode(FourmiOuvriere.Mode.RECHERCHE);
-				else
-				    {
-					PheromoneAlerte centre_ph_tmp = ph.getMainPhero();
-					fuir(((FourmiOuvriere)pl.obj), centre_ph_tmp);
-				    }
 			    }
 		    }
 		else if(pl.obj instanceof FourmiGuerriere)
@@ -225,7 +213,8 @@ class Matrice implements Constantes
 		    }
 	    }
     }
-
+	
+	// Mise a jour des pheromones laissees par les fourmis (suppression)
     public void updatePhero(Placement pl)
     {
 	if(pl.obj instanceof PheromoneNourriture)
@@ -237,6 +226,7 @@ class Matrice implements Constantes
 	    }
     }
 
+	// Mise a jour des pheromones laissees par les fourmis (ajout)
     public void updatePheroAlerte(Pheromone p,ArrayList<Pheromone> aListP)
     {
 	int x = p.getX();
