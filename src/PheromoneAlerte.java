@@ -5,6 +5,7 @@ class PheromoneAlerte extends Pheromone implements Constantes
     private int stade;
     private PheromoneAlerte p; //Phero principale
 
+	// Cree des pheromones lors d'une mort de fourmi avant de les dessiner sur le jeu 
     public PheromoneAlerte(int x, int y,Fourmiliere f, Color c,int s)
     {
 	super(x,y,f);
@@ -27,6 +28,7 @@ class PheromoneAlerte extends Pheromone implements Constantes
 	return stade;
     }
 
+	// Propagation de la pheromone
     public void propager()
     {
 	stade = -1;
