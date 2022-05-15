@@ -12,17 +12,16 @@ class Plante implements Constantes
     private int type;
    
     public int generateRandom(int min, int max) {
-        // create instance of Random class
+        // Creation d'une instance pour l'aleatoire
         Random randomNum = new Random();
         return min + randomNum.nextInt(max);
     }
    
+   	// Creation des plantes a des enmplacements aleatoires sur la carte.
     public Plante(int x, int y, int taille)
     {
-	this.x = generateRandom(50, 750);
-	this.y = generateRandom(50, 750);
-	//this.x = x;
-	//this.y = y;
+	this.x = generateRandom(0, 800);
+	this.y = generateRandom(0, 800);
 	this.taille = taille;
 	type = (int) (Math.random() * 3);
 
@@ -52,6 +51,7 @@ class Plante implements Constantes
 	    }
     }
 
+	//Gestion de la quatité de nourriture des plantes
     public void grandir()
     { 
 	temps_evo ++;
