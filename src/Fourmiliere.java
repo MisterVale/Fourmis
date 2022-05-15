@@ -21,7 +21,6 @@ class Fourmiliere extends Thread
 	this.c = c;
 	// Initialement, les reserves sont vides, elles se remplissent quand les fourmis ramenent des plantes dans la fourmiliere
 	reserves = 0;
-	int cpt = 0;
 
 	for(int i=0; i<nbFourmiOuv;i++)
 	    {
@@ -42,11 +41,7 @@ class Fourmiliere extends Thread
 		fc.start();
 	    }   
     }
-    
-    public void run(){
-		//FourmiOuvriere fo = new FourmiOuvriere(x,y,this,c);
-		//sallFourmi.add(fo);
-    }
+   
 
     public int getReserves ()
     { 
@@ -73,7 +68,7 @@ class Fourmiliere extends Thread
 	for(int i=0; i<allFourmi.size();i++)
 	    {
 		if(allFourmi.get(i) instanceof FourmiOuvriere)
-		    cpt++;
+			cpt++;
 	    }
 	return cpt;
     }
@@ -148,6 +143,7 @@ class Fourmiliere extends Thread
 	//on cree une nouvelle fourmi ouvriere on l'ajoute a larrayList
 	FourmiOuvriere fo = new FourmiOuvriere(x,y,this,c);
 	allFourmi.add(fo);
+	fo.start();
     }
 
     public void addFourmiGue()
@@ -155,6 +151,7 @@ class Fourmiliere extends Thread
 	//on cree une nouvelle fourmi guerriere on l'ajoute a larrayList
 	FourmiGuerriere fg = new FourmiGuerriere(x,y,this,c);
 	allFourmi.add(fg);
+	fg.start();
     }
 
     public void addFourmiCmdt()
@@ -162,6 +159,7 @@ class Fourmiliere extends Thread
 	//on cree une nouvelle fourmi guerriere on l'ajoute a larrayList
 	FourmiCommandant fc = new FourmiCommandant(x,y,this,c);
 	allFourmi.add(fc);
+	fc.start();
     }
 
     public void killFourmi(int i) throws Placement
