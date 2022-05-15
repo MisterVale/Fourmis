@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.*;
 
-class Fourmiliere
+class Fourmiliere extends Thread
 {
     // Coordonnees de la fourmiliere
     private int x;
@@ -14,24 +14,38 @@ class Fourmiliere
     private ArrayList<Fourmi> allFourmi = new ArrayList<Fourmi>();
 
     // Constructeur avec parametres
-    public Fourmiliere(int x, int y, int nbFourmiOuv, int nbFourmiGue, Color c)
+    public Fourmiliere(int x, int y, int nbFourmiOuv, int nbFourmiGue, int nbFourmiCmdt, Color c) throws StackOverflowError
     {
 	this.x = x;
 	this.y = y;
 	this.c = c;
 	// Initialement, les reserves sont vides, elles se remplissent quand les fourmis ramenent des plantes dans la fourmiliere
 	reserves = 0;
+	int cpt = 0;
 
 	for(int i=0; i<nbFourmiOuv;i++)
 	    {
 		FourmiOuvriere fo = new FourmiOuvriere(x,y,this,c);
 		allFourmi.add(fo);
+        fo.start();
 	    }
 	for(int i=0; i<nbFourmiGue;i++)
 	    {
 		FourmiGuerriere fg = new FourmiGuerriere(x,y,this,c);
 		allFourmi.add(fg);
+		fg.start();
 	    }
+	for(int i=0; i<nbFourmiCmdt;i++)
+	    {
+		FourmiCommandant fc = new FourmiCommandant(x,y,this,c);
+		allFourmi.add(fc);
+		fc.start();
+	    }   
+    }
+    
+    public void run(){
+		//FourmiOuvriere fo = new FourmiOuvriere(x,y,this,c);
+		//sallFourmi.add(fo);
     }
 
     public int getReserves ()
@@ -41,7 +55,7 @@ class Fourmiliere
 
     public void addReserves ( int apport )
     { 
-	// L'apport n est pas toujours le meme 
+	// L'apport n'est pas toujours le meme 
 	// si une fourmi mange une portion de 3 sur une plante et que celle ci meurt, la fourmi rentre a la fourmiliere.
 	// On ajoute ce que la fourmi a rapporte aux reserves de la fourmiliere
 	reserves += apport ;
@@ -75,6 +89,17 @@ class Fourmiliere
 	return cpt;
     }
 
+    public int getNbCmdt()
+    {
+	int cpt = 0;
+	for(int i=0; i<allFourmi.size();i++)
+	    {
+		if(allFourmi.get(i) instanceof FourmiCommandant)
+		    cpt++;
+	    }
+	return cpt;
+    }
+
     public int getNbFourmi()
     {
 	return allFourmi.size();
@@ -92,11 +117,11 @@ class Fourmiliere
 
     public Fourmi getFourmi(int indice)
     {
-	// on retourne la fourmi se trouvant a l'indice i de l arrayList
+	// on retourne la fourmi se trouvant a l'indice i de l'arrayList
 	if(indice >= 0 && indice <= allFourmi.size())
 	    return allFourmi.get(indice);
 	else
-	    // on retourne null si elle n existe pas
+	    // on retourne null si elle n'existe pas
 	    return null;
     }
 
@@ -130,6 +155,13 @@ class Fourmiliere
 	//on cree une nouvelle fourmi guerriere on l'ajoute a larrayList
 	FourmiGuerriere fg = new FourmiGuerriere(x,y,this,c);
 	allFourmi.add(fg);
+    }
+
+    public void addFourmiCmdt()
+    {
+	//on cree une nouvelle fourmi guerriere on l'ajoute a larrayList
+	FourmiCommandant fc = new FourmiCommandant(x,y,this,c);
+	allFourmi.add(fc);
     }
 
     public void killFourmi(int i) throws Placement
