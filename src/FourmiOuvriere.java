@@ -5,7 +5,7 @@ public class FourmiOuvriere extends Fourmi
     private int charge; // Nourriture portée
     private static int chargeMax; // Nourriture maximum portable
     // Differents modes possibles dans lesquels peut se trouver la fourmi
-    static public enum Mode{RECHERCHE, MANGER, RENTRE, PHEROMONE, FUIR};
+    static public enum Mode{RECHERCHE, MANGER, RENTRE, PHEROMONE};
     private Mode mode;
     // Directions possibles
     public static enum Direction{ HAUT, BAS, DROITE, GAUCHE};
@@ -24,9 +24,11 @@ public class FourmiOuvriere extends Fourmi
 
 	// on personnalise la couleur des fourmis ouvrieres pour les distinguer
 	if(c.getRed() == 0 )
-	    this.c= new Color(c.getRed()+150,c.getGreen(),c.getBlue(),c.getAlpha());
+	    this.c= new Color(c.getRed()+150,c.getGreen()+150,c.getBlue(),c.getAlpha());
 	else if(c.getBlue() == 0)
-	    this.c= new Color(c.getRed(),c.getGreen(),c.getBlue()+150,c.getAlpha());
+	    this.c= new Color(c.getRed()+150,c.getGreen(),c.getBlue()+150,c.getAlpha());
+	else if(c.getGreen() == 0)
+	    this.c= new Color(c.getRed(),c.getGreen()+150,c.getBlue()+150,c.getAlpha());
     }
 
 
@@ -69,9 +71,10 @@ public class FourmiOuvriere extends Fourmi
     }
 
     public void suivrePheroNourri() throws Placement
-    {
-	// cf rapport 
+    { 
 
+	// Permet a la fourmi de se deplacer sur la carte dans quatre directions 
+	// (HAUT, BAS, DROITE, GAUCHE) quand elle recherche de la nourriture
 	switch(direction)
 	    {
 	    case HAUT:
@@ -170,7 +173,7 @@ public class FourmiOuvriere extends Fourmi
 		pl.old_x = x;
 		pl.old_y = y;
 
-		// si elle se trouve juste au dessus ou au dessous de la fourmiliere, elle part en haut ou en bas (en direction de sa fourmiliere
+		// si elle se trouve juste au dessus ou au dessous de la fourmiliere, elle part en haut ou en bas (en direction de sa fourmiliere)
 		if(x == f.getX())
 		    {
 			if(y > f.getY())
@@ -192,7 +195,7 @@ public class FourmiOuvriere extends Fourmi
 			int choix = (int) (Math.random() * 2);
 			if(choix == 1)
 			    {
-				// en haut ou en bas (en direction de la fourmiliere quand meme !!!)
+				// en haut ou en bas (en direction de la fourmiliere)
 				if(y > f.getY())
 				    y-=10;
 				else if(y < f.getY())
@@ -200,7 +203,7 @@ public class FourmiOuvriere extends Fourmi
 			    }
 			else
 			    {
-				// a gauche ou a droite (en direction de la fourmiliere quand meme !!!)
+				// a gauche ou a droite (en direction de la fourmiliere)
 				if(x > f.getX())
 				    x-=10;  
 				else if(x < f.getX())
@@ -219,7 +222,7 @@ public class FourmiOuvriere extends Fourmi
 	    {
 		// on entre ici si la fourmi est sur sa fourmiliere
 		pl.phe = null;
-		// on vide la charge de la fourmi pour l ajouter aux reserves de sa fourmiliere
+		// on vide la charge de la fourmi pour l'ajouter aux reserves de sa fourmiliere
 		f.addReserves(charge);
 		charge = 0;
 		// ensuite la fourmi repart a la recherche de plantes
@@ -245,9 +248,6 @@ public class FourmiOuvriere extends Fourmi
 		break;
 	    case PHEROMONE:
 		suivrePheroNourri();
-		break;
-	    case FUIR:
-		fuir();
 		break;
 	    }
     }
