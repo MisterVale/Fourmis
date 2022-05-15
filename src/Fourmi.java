@@ -47,22 +47,22 @@ abstract class Fourmi extends Thread implements Constantes
 	    {
 	    case 0:
 		// la fourmi part a droite
-		if(x+COTE < LONG-20)
+		if(x+COTE < LONG-50)
 		    x+=10;
 		break;
 	    case 1:
 		// la fourmi part a gauche
-		if(x-10 >= 20)
+		if(x-10 >= 50)
 		    x-=10;
 		break;
 	    case 2:
 		// la fourmi part en bas
-		if(y+COTE < HAUT-20)
+		if(y+COTE < HAUT-50)
 		    y+=10;
 		break;
 	    case 3:
 		// la fourmi part en haut
-		if(y-10 >= 20)
+		if(y-10 >= 50)
 		    y-=10;
 		break;
 	    }
