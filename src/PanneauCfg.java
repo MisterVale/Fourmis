@@ -14,6 +14,7 @@ public class PanneauCfg extends JPanel implements Constantes
 
     private int[] nbOuv = {0,0,0};
     private int[] nbGue = {0,0,0};
+    private int[] nbCmdt = {0,0,0};
     private int[] res = {0,0,0};
 
     private Panneau simul;
@@ -55,7 +56,7 @@ public class PanneauCfg extends JPanel implements Constantes
 	// Mise a jour du temps
 	//temps[0] += DELAY;
 
-	if (temps[3]==0 && temps[2]==0 && temps[1]==1){
+	if (temps[3]==0 && temps[2]==0 && temps[1]==0){
 		temps[0]=0;
 		temps[1]=0;
 		temps[2]=0;
@@ -63,7 +64,7 @@ public class PanneauCfg extends JPanel implements Constantes
 		System.out.println("Fin de partie");
 		System.out.println("Points de la fourmilière rouge : " + res[0]);
 		System.out.println("Points de la fourmilière bleue : " + res[1]);
-		System.out.println("Points de la fourmilière jaune : " + res[2]);
+		System.out.println("Points de la fourmilière verte : " + res[2]);
 		if (res[0] > res[1] && res[0] > res[2]){
 			System.out.println("Victoire de la fourmilière rouge !");
 		}
@@ -71,10 +72,10 @@ public class PanneauCfg extends JPanel implements Constantes
 			System.out.println("Victoire de la fourmilière bleue !");
 		}
 		if (res[2] > res[0] && res[2] > res[1]){
-			System.out.println("Victoire de la fourmilière jaune !");
+			System.out.println("Victoire de la fourmilière verte !");
 		}
 		while (true) {
-			// Boucle infinie pour stopper le timer
+			// Boucle infinie pour stopper le timer a la fin de la partie
 		}
 	}
 	if(temps[1]!=0 && temps[2]==0 && temps[3]!=0){
@@ -119,27 +120,30 @@ public class PanneauCfg extends JPanel implements Constantes
 	buffer.setFont(font);
 	buffer.drawString("Nombre de Fourmis ouvriere : " + nbOuv[0],10, 60);
 	buffer.drawString("Nombre de Fourmis guerriere : " + nbGue[0],10, 80);
-	buffer.drawString("Reserves : " + res[0],10, 100);
+	buffer.drawString("Nombre de Fourmis commandant : " + nbCmdt[0],10, 100);
+	buffer.drawString("Reserves : " + res[0],10, 120);
 
 	//2eme fourmiliere
-	buffer.drawString("Nombre de Fourmis ouvriere : " + nbOuv[1],10, 220);
-	buffer.drawString("Nombre de Fourmis guerriere : " + nbGue[1],10, 240);
-	buffer.drawString("Reserves : " + res[1],10, 260);
+	buffer.drawString("Nombre de Fourmis ouvriere : " + nbOuv[1],10, 240);
+	buffer.drawString("Nombre de Fourmis guerriere : " + nbGue[1],10, 260);
+	buffer.drawString("Nombre de Fourmis commandant : " + nbCmdt[1],10, 280);
+	buffer.drawString("Reserves : " + res[1],10, 300);
 	
 	//3eme fourmiliere
-	buffer.drawString("Nombre de Fourmis ouvriere : " + nbOuv[2],10, 380);
-	buffer.drawString("Nombre de Fourmis guerriere : " + nbGue[2],10, 400);
-	buffer.drawString("Reserves : " + res[2],10, 420);
+	buffer.drawString("Nombre de Fourmis ouvriere : " + nbOuv[2],10, 420);
+	buffer.drawString("Nombre de Fourmis guerriere : " + nbGue[2],10, 440);
+	buffer.drawString("Nombre de Fourmis commandant : " + nbCmdt[2],10, 460);
+	buffer.drawString("Reserves : " + res[2],10, 480);
 
 	// Rectangle rouge
 	buffer.setColor(Color.red);
-	buffer.drawRect(2,40,LONG_CFG-8-8, 130); 
+	buffer.drawRect(2,40,LONG_CFG-8, 175); 
 	// Rectangle bleu
 	buffer.setColor(Color.blue);
-	buffer.drawRect(2,200,LONG_CFG-8-8, 130); 
-	// Rectangle jaune
-	buffer.setColor(Color.yellow);
-	buffer.drawRect(2,360,LONG_CFG-8-8, 130); 
+	buffer.drawRect(2,220,LONG_CFG-8, 175); 
+	// Rectangle vert
+	buffer.setColor(Color.green);
+	buffer.drawRect(2,400,LONG_CFG-8, 175); 
 
 	g.drawImage(image,0,0,this);
     }
@@ -170,12 +174,17 @@ public class PanneauCfg extends JPanel implements Constantes
 	simul.addFourmiGue(f);
     }
 
+    public void addFourmiCmdt(int f)
+    {
+	simul.addFourmiCmdt(f);
+    }
+    
     public void update(Panneau p)
     {
 	// Mise a jour des informations relatives aux fourmilieres
 	// dans le panneau de configuration
 	simul = p;
-	p.info(nbOuv, nbGue, res);
+	p.info(nbOuv, nbGue, nbCmdt, res);
 	repaint();
     }   
 
