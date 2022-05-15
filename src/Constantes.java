@@ -4,7 +4,7 @@ interface Constantes
 {
     // Longueur de la fenetre
     public static final int LONG = 800;
-    public static final int LONG_CFG = 260;
+    public static final int LONG_CFG = 270;
     // Largeur de la fenetre
     public static final int HAUT = 800;
     // temps en ms entre deux images
@@ -24,5 +24,5 @@ interface Constantes
     // Duree de vie d une pheromone
     public static final int DUREE_VIE_PHERO = 50;
     // Couleurs possibles pour les fourmilieres
-    public static final Color[] COLOR_FOURMILIERE = {new Color(255,255,0,250), new Color(0,0,255,250), new Color(255,0,0,250)};
+    public static final Color[] COLOR_FOURMILIERE = {new Color(1,255,0,250), new Color(0,1,255,250), new Color(255,0,1,250)};
 }
