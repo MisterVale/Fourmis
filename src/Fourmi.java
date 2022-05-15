@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract class Fourmi implements Constantes
+abstract class Fourmi extends Thread implements Constantes
 {
 
     // nombre de fourmis créées
@@ -102,7 +102,7 @@ abstract class Fourmi implements Constantes
     }
 
     // accesseur
-    protected int getId()
+    protected int get_Id()
     {
 	return id;
     }
@@ -117,4 +117,3 @@ abstract class Fourmi implements Constantes
     }
 
 }
-
