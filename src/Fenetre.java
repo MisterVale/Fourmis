@@ -9,19 +9,17 @@ public class Fenetre extends JFrame implements Constantes
     public Fenetre()
     {
 	
-	super("Foumis Simulator");
+	super("Ant War");
 	icon = Toolkit.getDefaultToolkit().getImage("images/iconSim.png");
 	setIconImage(icon);
 
-	setBounds(20,20,LONG+8,HAUT+28);//8 et 28 pour les bordures pour obtenir la bonne taille de 800x600
+	setBounds(20,20,LONG+8,HAUT+28);//8 et 28 pour les bordures pour obtenir la bonne taille de 800x800
 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	panel.readFile();
 	setContentPane(panel);
-	setVisible(true);
-	
-	//	setResizable(false);
-
+	setVisible(true);	
+	setResizable(false);
 
     }
 
